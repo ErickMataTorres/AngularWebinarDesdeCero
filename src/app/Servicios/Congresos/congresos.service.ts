@@ -20,4 +20,7 @@ export class CongresosService {
   spCongresos_Borrar(id: number): Observable<string> {
     return this.http.get<string>(this.url + `/Congresos/spCongresos_Borrar?id=` + id);
   }
+  spLlenarComboBoxCongresos():Observable<Congreso[]>{
+    return this.http.get<Congreso[]>(this.url+"/Congresos/spLlenarComboBoxCongresos");
+  }
 }

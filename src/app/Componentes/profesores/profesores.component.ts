@@ -44,7 +44,8 @@ export class ProfesoresComponent {
   openDialog(rowData: any, ponerTitulo: string): void {
     const dialogRef = this.dialog.open(DialogGuardarProfesoresComponent, {
       data: { rowData, ponerTitulo },
-      minWidth: "30%"
+      minWidth: "30%",
+      width:"400px"
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {

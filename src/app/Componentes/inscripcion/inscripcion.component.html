@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="headerContainer">
+    <h1 style="font-size:xx-large;">Inscripción a webinar</h1>
+  </div>
+  <hr>
+  <div class="divWebinar">
+    Webinar
+  </div>
+
+  <div class="subHeaderContainer">
+
+    <div class="divAgrupador">
+      <mat-form-field appearance="fill" id="selectCongresos">
+        <mat-label>Congreso</mat-label>
+        <mat-select [formControl]="congresosControl" required #slcCongresos (selectionChange)="spTalleres_Obtener();">
+          <mat-option *ngFor="let c of congresos" [value]="c.Id">
+            {{c.Nombre}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="congresosControl.hasError('required')">Por favor elegir un congreso</mat-error>
+        <!-- <mat-hint>{{estadosControl.value?.Nombre}}</mat-hint> -->
+      </mat-form-field>
+
+
+
+      <mat-form-field>
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="..." #input>
+      </mat-form-field>
+      <div class="mat-elevation-z8 table-responsive">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="Nombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+            <td mat-cell *matCellDef="let row"> {{row.Nombre}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Profesor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Profesor </th>
+            <td mat-cell *matCellDef="let row"> {{row.ProfesorNombre}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Cupo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cupo </th>
+            <td mat-cell *matCellDef="let row"> {{row.Cupo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Inscritos">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Inscritos </th>
+            <td mat-cell *matCellDef="let row"> {{row.Inscritos}} </td>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="Precio">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+            <td mat-cell *matCellDef="let row"> {{row.Precio}} </td>
+          </ng-container> -->
+
+          <ng-container matColumnDef="Turno">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Turno </th>
+            <td mat-cell *matCellDef="let row"> {{row.Turno===0?"Matutino":"Vespertino"}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Horario">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Horario </th>
+            <td mat-cell *matCellDef="let row"> {{row.Horario}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Accion">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row">
+
+              <button class="btn btnAgregar" id="btnSeleccionar" (click)="toggleClassSeleccionar();">
+                Seleccionar
+              </button>
+
+              <!-- <button style="margin-right:10px;" [ngClass]="!seleccionar ? 'btn btnAgregar' : 'btn btnReimprimir'" (click)="seleccionar=!seleccionar">
+                {{
+                  !seleccionar ? 'Seleccionar' : 'Seleccionado'
+                }}
+              </button> -->
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+
+    </div>
+  </div>
+  <div id="btnInscripcion">
+    Finalizar inscripción
+  </div>
+
+</div>

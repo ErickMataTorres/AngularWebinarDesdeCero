@@ -1,0 +1,95 @@
+<h1 mat-dialog-title style="text-align:center;">{{tituloMatDialog}}</h1>
+<hr>
+<div mat-dialog-content>
+  <div id="mensajeEstasSeguro">
+    <!-- <p class="text-center">¿Estás seguro?</p> -->
+  </div>
+  <mat-form-field class="example-full-width">
+    <mat-label>Nombre</mat-label>
+    <input type="text" matInput [formControl]="nombreFormControl" placeholder="..." #txtNombre
+      (keyup.enter)="spCongresos_Guardar();" [readonly]="inputReadOnly">
+    <mat-error *ngIf="nombreFormControl.hasError('required')">
+      Por favor ingresar un nombre
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" *ngIf="inputReadOnly">
+    <mat-label>Profesor</mat-label>
+    <input type="text" matInput placeholder="..." value="{{data.rowData.ProfesorNombre}}" [readonly]="inputReadOnly">
+    <mat-error *ngIf="turnosControl.hasError('required')">Por favor escoger un estado</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" *ngIf="!inputReadOnly">
+    <mat-label>Profesor</mat-label>
+    <mat-select [formControl]="profesoresControl" required #slcProfesores>
+      <mat-option *ngFor="let c of profesores" [value]="c.Id">
+        {{c.Nombre}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="profesoresControl.hasError('required')">Por favor elegir un profesor</mat-error>
+    <!-- <mat-hint>{{estadosControl.value?.Nombre}}</mat-hint> -->
+  </mat-form-field>
+
+
+  <mat-form-field appearance="fill" *ngIf="!inputReadOnly">
+    <mat-label>Congreso</mat-label>
+    <mat-select [formControl]="congresosControl" required #slcCongresos>
+      <mat-option *ngFor="let c of congresos" [value]="c.Id">
+        {{c.Nombre}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="congresosControl.hasError('required')">Por favor elegir un congreso</mat-error>
+    <!-- <mat-hint>{{estadosControl.value?.Nombre}}</mat-hint> -->
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" *ngIf="!inputReadOnly">
+    <mat-label>Cupo</mat-label>
+    <input type="text" matInput [formControl]="cupoFormControl" placeholder="..." #txtCupo
+      (keyup.enter)="spCongresos_Guardar();" [readonly]="inputReadOnly">
+    <mat-error *ngIf="cupoFormControl.hasError('required')">
+      Por favor ingresar una cantidad
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" *ngIf="!inputReadOnly">
+    <mat-label>Precio</mat-label>
+    <input type="text" matInput [formControl]="precioFormControl" placeholder="..." #txtPrecio
+      (keyup.enter)="spCongresos_Guardar();" [readonly]="inputReadOnly">
+    <mat-error *ngIf="precioFormControl.hasError('required')">
+      Por favor ingresar una precio
+    </mat-error>
+  </mat-form-field>
+
+
+    <mat-form-field appearance="fill" *ngIf="!inputReadOnly">
+      <mat-label>Turno</mat-label>
+      <mat-select [formControl]="turnosControl" required #slcTurnos>
+        <mat-option *ngFor="let c of turnos" [value]="c.Valor">
+          {{c.Nombre}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="turnosControl.hasError('required')">Por favor elegir un turno</mat-error>
+      <!-- <mat-hint>{{estadosControl.value?.Nombre}}</mat-hint> -->
+    </mat-form-field>
+
+
+  <mat-form-field class="example-full-width" *ngIf="!inputReadOnly">
+    <mat-label>Horario</mat-label>
+    <input type="text" matInput [formControl]="horarioFormControl" placeholder="..." #txtHorario
+      (keyup.enter)="spCongresos_Guardar();" [readonly]="inputReadOnly">
+    <mat-error *ngIf="horarioFormControl.hasError('required')">
+      Por favor ingresar un horario
+    </mat-error>
+  </mat-form-field>
+
+    
+  <div id="mensajeBorrarInstructor">
+    <!-- <p class="text-center">Se va a borrar el instructor</p> -->
+  </div>
+</div>
+<hr>
+<div mat-dialog-actions class="buttonsContainer">
+  <button class="btn btnReimprimir" mat-dialog-close="Nuevo">{{configurarBotones.configBotonCancelar}}</button>
+  <button class="btn btnAgregar"
+    (click)="spCongresos_Guardar();">{{configurarBotones.configBotonConfirmar}}</button>
+</div>

@@ -20,6 +20,8 @@ import {MatSelectModule} from '@angular/material/select';
 
 import { CongresosComponent } from './Componentes/congresos/congresos.component';
 import { DialogCongresosComponent } from './Componentes/dialog-congresos/dialog-congresos.component';
+import { DialogTalleresComponent } from './Componentes/dialog-talleres/dialog-talleres.component';
+import { InscripcionComponent } from './Componentes/inscripcion/inscripcion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,9 @@ import { DialogCongresosComponent } from './Componentes/dialog-congresos/dialog-
     TalleresComponent,
     DialogGuardarProfesoresComponent,
     CongresosComponent,
-    DialogCongresosComponent
+    DialogCongresosComponent,
+    DialogTalleresComponent,
+    InscripcionComponent
   ],
   imports: [
     BrowserModule,

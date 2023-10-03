@@ -1,15 +1,12 @@
 .navbar a {
     color: white;
 }
-
 .dropdown-menu a:hover {
     background-color: #5c6874;
 }
-
 .separadorNavBar {
     color: white;
 }
-
 #seccionIcons a:hover {
     background-color: #5c6874;
 }
