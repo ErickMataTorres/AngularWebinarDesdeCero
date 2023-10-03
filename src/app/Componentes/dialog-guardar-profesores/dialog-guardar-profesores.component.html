@@ -1,0 +1,24 @@
+<h1 mat-dialog-title style="text-align:center;">{{tituloMatDialog}}</h1>
+<hr>
+<div mat-dialog-content>
+  <div id="mensajeEstasSeguro">
+    <!-- <p class="text-center">¿Estás seguro?</p> -->
+  </div>
+  <mat-form-field class="example-full-width">
+    <mat-label>Nombre</mat-label>
+    <input type="text" matInput [formControl]="nombreFormControl" placeholder="..." #txtNombre
+      (keyup.enter)="spProfesores_Guardar(txtNombre.value);" [readonly]="inputReadOnly">
+    <mat-error *ngIf="nombreFormControl.hasError('required')">
+      Por favor ingresar un nombre
+    </mat-error>
+  </mat-form-field>
+  <div id="mensajeBorrarInstructor">
+    <!-- <p class="text-center">Se va a borrar el instructor</p> -->
+  </div>
+</div>
+<hr>
+<div mat-dialog-actions class="buttonsContainer">
+  <button class="btn btnReimprimir" mat-dialog-close="Nuevo">{{configurarBotones.configBotonCancelar}}</button>
+  <button class="btn btnAgregar"
+    (click)="spProfesores_Guardar(txtNombre.value);">{{configurarBotones.configBotonConfirmar}}</button>
+</div>

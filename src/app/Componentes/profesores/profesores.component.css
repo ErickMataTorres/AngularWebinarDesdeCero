@@ -1,0 +1,49 @@
+.btnAgregar {
+  border-radius: 4px;
+  background-color: #273646;
+  color: white;
+}
+
+.btnAgregar:hover {
+  background-color: #5c6874;
+}
+
+.btnReimprimir {
+  border-radius: 4px;
+  background-color: #1b5a4c;
+  color: white;
+}
+
+.btnReimprimir:hover {
+  background-color: #278f78;
+}
+
+.headerContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2%;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td,
+th {
+  width: 25%;
+}
+
+.btnReimprimir {
+  border-radius: 4px;
+  background-color: #1b5a4c;
+  color: white;
+}
+
+.btnReimprimir:hover {
+  background-color: #278f78;
+}

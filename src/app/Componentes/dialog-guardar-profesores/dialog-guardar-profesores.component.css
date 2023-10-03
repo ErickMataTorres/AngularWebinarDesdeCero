@@ -1,0 +1,30 @@
+mat-form-field {
+  width: 100%;
+}
+
+.btnAgregar {
+  border-radius: 4px;
+  background-color: #273646;
+  color: white;
+}
+
+.btnAgregar:hover {
+  background-color: #5c6874;
+}
+
+.btnReimprimir {
+  border-radius: 4px;
+  background-color: #1b5a4c;
+  color: white;
+  margin-right: 10px;
+}
+
+.btnReimprimir:hover {
+  background-color: #278f78;
+
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: flex-end;
+}

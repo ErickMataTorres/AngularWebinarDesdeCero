@@ -1,0 +1,28 @@
+.jumbotron {
+  border-radius: 5px;
+  min-height: 50%;
+  background-color: #e9ecef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.bienvenido {
+  font-size: 70px;
+}
+
+.parrafo {
+  font-size: 20px;
+}
+
+.btnAgregar {
+  border-radius: 4px;
+  background-color: #273646;
+  color: white;
+  font-size: x-large;
+}
+
+.btnAgregar:hover {
+  background-color: #5c6874;
+}
