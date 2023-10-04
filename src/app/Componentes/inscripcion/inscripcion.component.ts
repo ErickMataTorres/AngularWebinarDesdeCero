@@ -40,9 +40,19 @@ export class InscripcionComponent {
     });
   }
 
-  toggleClassSeleccionar():void {
-    const button = this.element.nativeElement.querySelector('button');
-    this.renderer.addClass(button,'btnReimprimir');
+  toggleClassSeleccionar(idTaller:string):void {
+    
+    const button = this.element.nativeElement.querySelector(`#${idTaller}`);
+    if(button.textContent!=='Seleccionado'){
+      this.renderer.addClass(button,'btnReimprimir');
+      this.renderer.setProperty(button, 'textContent','Seleccionado');
+      
+    }else{
+      this.renderer.removeClass(button,'btnReimprimir');
+      this.renderer.setProperty(button, 'textContent','Seleccionar');
+      
+    }
+    console.log(button.textContent);
   }
 
   applyFilter(event: Event) {
