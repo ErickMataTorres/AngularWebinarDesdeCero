@@ -17,10 +17,14 @@ export class InscripcionComponent {
   displayedColumns: string[] = ["Nombre","Profesor","Cupo","Inscritos","Turno","Horario", "Accion"];
   dataSource!: MatTableDataSource<Taller>;
   congresos?:Congreso[];
+  Selected:any = {
+    Talleres: [],
+    Datos:{}
+  };
+  contadorTaller:number=0;
   congresosControl=new FormControl<Congreso|null>(null, Validators.required);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  seleccionar:boolean=false;
   constructor(
     private _congresoS: CongresosService,
     private _tallerS:TalleresService,
@@ -40,19 +44,24 @@ export class InscripcionComponent {
     });
   }
 
-  toggleClassSeleccionar(idTaller:string):void {
-    
-    const button = this.element.nativeElement.querySelector(`#${idTaller}`);
+  toggleClassSeleccionar(row: any):void {
+    const button = this.element.nativeElement.querySelector(`#btnSeleccionar${row.Id}`);
+    if(this.contadorTaller>0 && button.textContent!=='Seleccionado'){
+      // console.log('Por el momento solo se permite seleccionar un taller a la vez');
+      return;
+    }
     if(button.textContent!=='Seleccionado'){
       this.renderer.addClass(button,'btnReimprimir');
       this.renderer.setProperty(button, 'textContent','Seleccionado');
-      
+      this.contadorTaller++;
+      this.Selected.Talleres.push(row);
     }else{
       this.renderer.removeClass(button,'btnReimprimir');
       this.renderer.setProperty(button, 'textContent','Seleccionar');
-      
+      this.Selected.Talleres=[];
+      this.contadorTaller--;
     }
-    console.log(button.textContent);
+    console.log(this.Selected.Talleres);
   }
 
   applyFilter(event: Event) {
