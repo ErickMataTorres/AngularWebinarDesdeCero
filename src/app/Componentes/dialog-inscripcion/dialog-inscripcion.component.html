@@ -1,0 +1,81 @@
+
+<h1 mat-dialog-title style="text-align:center;">{{tituloMatDialog}}</h1>
+<hr>
+<div mat-dialog-content>
+  <div id="mensajeEstasSeguro">
+    <!-- <p class="text-center">¿Estás seguro?</p> -->
+  </div>
+  <div class="testDialog">
+
+      <mat-form-field class="example-full-width">
+          <mat-label>Matrícula / #Emp.</mat-label>
+          <input type="text" matInput [formControl]="matriculaFormControl" placeholder="..." #txtMatricula [readonly]="inputReadOnly">
+          <mat-error *ngIf="matriculaFormControl.hasError('required')">
+              Por favor ingresar un valor válido
+            </mat-error>
+        </mat-form-field>
+        <button style="margin-left: 2%;" class="btn btnAgregar">Buscar</button>
+    </div>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Nombre</mat-label>
+        <input type="text" matInput [formControl]="nombreFormControl" placeholder="..." #txtNombre [readonly]="inputReadOnly">
+        <mat-error *ngIf="nombreFormControl.hasError('required')">
+            Por favor ingresar un nombre
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Carrera / Especialidad</mat-label>
+        <input type="text" matInput [formControl]="carreraFormControl" placeholder="..." #txtCarrera [readonly]="inputReadOnly">
+        <mat-error *ngIf="carreraFormControl.hasError('required')">
+            Por favor ingresar un carrera
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput [formControl]="emailFormControl" placeholder="..." #txtEmail>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Por favor ingresar un correo electrónico
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          El correo electrónico es requerido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Teléfono</mat-label>
+        <span matPrefix>+52 &nbsp;</span>
+        <input type="tel" matInput [formControl]="telefonoFormControl" placeholder="..." #txtTelefono [readonly]="inputReadOnly">
+        <!-- <mat-icon matSuffix>mode_edit</mat-icon> -->
+        <mat-error *ngIf="telefonoFormControl.hasError('required')">
+            Por favor ingresar un teléfono
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Procedencia</mat-label>
+        <input type="text" matInput [formControl]="procedenciaFormControl" placeholder="..." #txtProcedencia [readonly]="inputReadOnly">
+        <mat-error *ngIf="procedenciaFormControl.hasError('required')">
+            Por favor ingresar una procedencia
+          </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Folio</mat-label>
+        <input type="text" matInput [formControl]="folioFormControl" placeholder="..." #txtFolio [readonly]="inputReadOnly">
+        <mat-error *ngIf="folioFormControl.hasError('required')">
+            Por favor ingresar un folio
+          </mat-error>
+      </mat-form-field>
+
+  <div id="mensajeBorrarInstructor">
+    <!-- <p class="text-center">Se va a borrar el instructor</p> -->
+  </div>
+</div>
+<hr>
+<div mat-dialog-actions class="buttonsContainer">
+  <button class="btn btnReimprimir" mat-dialog-close="Nuevo">{{configurarBotones.configBotonCancelar}}</button>
+  <button class="btn btnAgregar" (click)="Inscribirse();">{{configurarBotones.configBotonConfirmar}}</button>
+</div>

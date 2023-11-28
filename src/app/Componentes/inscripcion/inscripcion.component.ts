@@ -1,5 +1,6 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -7,6 +8,7 @@ import { Congreso } from 'src/app/Clases/Congreso/congreso';
 import { Taller } from 'src/app/Clases/Taller/taller';
 import { CongresosService } from 'src/app/Servicios/Congresos/congresos.service';
 import { TalleresService } from 'src/app/Servicios/Talleres/talleres.service';
+import { DialogInscripcionComponent } from '../dialog-inscripcion/dialog-inscripcion.component';
 
 @Component({
   selector: 'app-inscripcion',
@@ -29,7 +31,8 @@ export class InscripcionComponent {
     private _congresoS: CongresosService,
     private _tallerS:TalleresService,
     private renderer:Renderer2,
-    private element:ElementRef
+    private element:ElementRef,
+    public dialog:MatDialog
   ){}
   
   ngOnInit(){
@@ -61,7 +64,36 @@ export class InscripcionComponent {
       this.Selected.Talleres=[];
       this.contadorTaller--;
     }
-    console.log(this.Selected.Talleres);
+  }
+
+  openDialog( ponerTitulo: string): void {
+    const dialogRef = this.dialog.open(DialogInscripcionComponent, {
+      data: { ponerTitulo },
+      minWidth: "30%",
+      width:"400px"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        
+        // if (ponerTitulo === "Nuevo") {
+        //   this.spProfesor_Obtener();
+        //   this.appendAlert("Se ha guardado correctamente", "", "background-color: #273646; color:white; text-align:center;", "<i class='fa-solid fa-circle-check' style='margin-left:10px;'></i>");
+        // } else {
+        //   if (ponerTitulo === "Modificar") {
+        //     this.spProfesor_Obtener();
+        //     this.appendAlert("Se ha modificado correctamente", "", "background-color: #273646; color:white; text-align:center;", "<i class='fa-solid fa-pen-to-square' style='margin-left:10px;'></i>");
+        //   } else {
+        //     this.spProfesor_Obtener();
+        //     this.appendAlert("Se ha borrado correctamente", "", "background-color: #1b5a4c; color:white; text-align:center;", "<i class='fa-solid fa-trash' style='margin-left:10px;'></i>");
+        //   }
+        // }
+      }
+      /*
+        setTimeout(() => {
+          document.getElementById("liveAlertPlaceholder")!.style.display="none";
+        }, 10000);
+      */
+    });
   }
 
   applyFilter(event: Event) {

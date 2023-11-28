@@ -8,6 +8,7 @@ import { Taller } from 'src/app/Clases/Taller/taller';
 })
 export class TalleresService {
   url = "https://localhost:44386";
+  // url = "http://practicar.somee.com";
   constructor(
     private http:HttpClient
   ) { }

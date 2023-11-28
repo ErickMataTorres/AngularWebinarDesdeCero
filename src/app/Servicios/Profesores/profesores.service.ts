@@ -7,6 +7,7 @@ import { Profesor } from 'src/app/Clases/Profesor/profesor';
 })
 export class ProfesoresService {
   url = "https://localhost:44386";
+  // url = "http://practicar.somee.com";
   constructor(
     private http: HttpClient
   ) { }

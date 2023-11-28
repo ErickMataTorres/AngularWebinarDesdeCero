@@ -17,11 +17,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
 
 import { CongresosComponent } from './Componentes/congresos/congresos.component';
 import { DialogCongresosComponent } from './Componentes/dialog-congresos/dialog-congresos.component';
 import { DialogTalleresComponent } from './Componentes/dialog-talleres/dialog-talleres.component';
 import { InscripcionComponent } from './Componentes/inscripcion/inscripcion.component';
+import { DialogInscripcionComponent } from './Componentes/dialog-inscripcion/dialog-inscripcion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +34,8 @@ import { InscripcionComponent } from './Componentes/inscripcion/inscripcion.comp
     CongresosComponent,
     DialogCongresosComponent,
     DialogTalleresComponent,
-    InscripcionComponent
+    InscripcionComponent,
+    DialogInscripcionComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { InscripcionComponent } from './Componentes/inscripcion/inscripcion.comp
     MatInputModule,
     MatDialogModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,6 +8,7 @@ import { Congreso } from 'src/app/Clases/Congreso/congreso';
 })
 export class CongresosService {
   url = "https://localhost:44386";
+  // url = "http://practicar.somee.com";
   constructor(
     private http: HttpClient
   ) { }
