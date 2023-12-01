@@ -9,12 +9,14 @@
 
       <mat-form-field class="example-full-width">
           <mat-label>Matrícula / #Emp.</mat-label>
-          <input type="text" matInput [formControl]="matriculaFormControl" placeholder="..." #txtMatricula [readonly]="inputReadOnly">
+          <input type="text" matInput [formControl]="matriculaFormControl" placeholder="..." #txtMatricula [readonly]="inputReadOnly" (keyup.enter)="BuscarAlumnoPorMatricula();">
+          
           <mat-error *ngIf="matriculaFormControl.hasError('required')">
-              Por favor ingresar un valor válido
-            </mat-error>
+            Por favor ingresar un valor válido
+          </mat-error>
+          
         </mat-form-field>
-        <button style="margin-left: 2%;" class="btn btnAgregar">Buscar</button>
+        <button style="margin-left: 2%;" class="btn btnAgregar" (click)="BuscarAlumnoPorMatricula();">Buscar</button>
     </div>
 
     <mat-form-field class="example-full-width">

@@ -13,9 +13,14 @@
       <mat-form-field appearance="fill" id="selectCongresos">
         <mat-label>Congreso</mat-label>
         <mat-select [formControl]="congresosControl" required #slcCongresos (selectionChange)="spTalleres_Obtener();">
-          <mat-option *ngFor="let c of congresos" [value]="c.Id">
+          @for(c of congresos; track c){
+            <mat-option [value]="c.Id">
+              {{c.Nombre}}
+            </mat-option>
+          }
+          <!-- <mat-option *ngFor="let c of congresos" [value]="c.Id">
             {{c.Nombre}}
-          </mat-option>
+          </mat-option> -->
         </mat-select>
         <mat-error *ngIf="congresosControl.hasError('required')">Por favor elegir un congreso</mat-error>
         <!-- <mat-hint>{{estadosControl.value?.Nombre}}</mat-hint> -->

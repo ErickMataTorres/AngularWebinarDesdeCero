@@ -1,6 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { AlumnosService } from 'src/app/Servicios/Alumnos/alumnos.service';
 
 @Component({
   selector: 'app-dialog-inscripcion',
@@ -9,8 +10,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class DialogInscripcionComponent {
   tituloMatDialog?: string;
-  nombreFormControl = new FormControl('', [Validators.required]);
   matriculaFormControl = new FormControl('', [Validators.required]);
+  nombreFormControl = new FormControl('', [Validators.required]);
   carreraFormControl=new FormControl('', [Validators.required]);
   emailFormControl=new FormControl('',[Validators.required, Validators.email]);
   telefonoFormControl=new FormControl('', [Validators.required]);
@@ -18,17 +19,65 @@ export class DialogInscripcionComponent {
   folioFormControl=new FormControl('',[Validators.required]);
   configurarBotones: any = { configBotonConfirmar: "", configBotonCancelar: "" };
   inputReadOnly?: string;
+
+  
+  @ViewChild("txtNombre") txtNombre?:ElementRef;
+  @ViewChild("txtCarrera")txtCarrera?:ElementRef;
+  @ViewChild("txtEmail") txtEmail?:ElementRef;
+
   constructor(
     private dialogRef:MatDialogRef<DialogInscripcionComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private _alumnoS:AlumnosService
   ){}
   ngOnInit():void{
     this.matDialogTitulo();
 
   }
 
+  BuscarAlumnoPorMatricula():void{
+
+    if(this.matriculaFormControl.value===""){
+      this.matriculaFormControl.markAsTouched();
+      return;
+    }
+
+    this._alumnoS.spBuscarAlumnoPorMatricula(this.matriculaFormControl.value!.toString()).subscribe(response=>{
+      if(response.Matricula===null){
+        this.nombreFormControl.setValue("");
+        this.carreraFormControl.setValue("");
+        this.carreraFormControl.markAsUntouched();
+        this.emailFormControl.markAsUntouched();
+        return;
+      }
+
+      this.nombreFormControl.setValue(response.Nombre);
+      
+      if(response.Carrera===null||response.Carrera===""){
+        this.carreraFormControl.setValue("");
+        this.emailFormControl.markAsUntouched();
+        this.txtCarrera?.nativeElement.focus();
+      }
+      else{
+        this.carreraFormControl.setValue(response.Carrera);
+        this.txtEmail?.nativeElement.focus();
+      }
+    })
+  }
+
+  
+
   Inscribirse():void{
-    
+    if(this.matriculaFormControl.value===""||this.nombreFormControl.value===""||this.carreraFormControl.value===""||this.emailFormControl.value===""||this.telefonoFormControl.value===""||this.procedenciaFormControl.value===""||this.folioFormControl.value===""){
+      this.matriculaFormControl.markAsTouched();
+      this.nombreFormControl.markAsTouched();
+      this.carreraFormControl.markAsTouched();
+      this.emailFormControl.markAsTouched();
+      this.telefonoFormControl.markAsTouched();
+      this.procedenciaFormControl.markAsTouched();
+      this.folioFormControl.markAsTouched();
+      return;
+    }
   }
 
   matDialogTitulo(): void {
