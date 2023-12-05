@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,18 +15,21 @@ import { CongresosService } from 'src/app/Servicios/Congresos/congresos.service'
   styleUrls: ['./talleres.component.css']
 })
 export class TalleresComponent { 
+  
   displayedColumns: string[] = ["Nombre","Profesor","Cupo","Inscritos","Precio","Turno","Horario", "Accion"];
   dataSource!: MatTableDataSource<Taller>;
   congresos?:Congreso[];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   congresosControl=new FormControl<Congreso|null>(null, Validators.required);
+  inputFormControl=new FormControl();
 
   constructor(
     private _congresoS: CongresosService,
     private _tallerS:TalleresService,
     public dialog: MatDialog
-  ){}
+  ){
+  }
 
   ngOnInit() {
     this._congresoS.spCongresos_Obtener().subscribe(response=>this.congresos=response);
@@ -76,8 +79,10 @@ export class TalleresComponent {
             this.spTalleres_Obtener();
             this.appendAlert("Se ha borrado correctamente", "", "background-color: #1b5a4c; color:white; text-align:center;", "<i class='fa-solid fa-trash' style='margin-left:10px;'></i>");
           }
-        }
+        } 
       }
+      window.scrollTo({top:0, behavior:"smooth"});
+      this.inputFormControl.setValue("");
       /*
         setTimeout(() => {
           document.getElementById("liveAlertPlaceholder")!.style.display="none";

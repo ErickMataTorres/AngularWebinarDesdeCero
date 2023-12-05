@@ -1,7 +1,9 @@
-import { Component, ElementRef, Inject, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Inscrito } from 'src/app/Clases/Inscrito/inscrito';
 import { AlumnosService } from 'src/app/Servicios/Alumnos/alumnos.service';
+import { DialogInscripcionRespuestasComponent } from '../dialog-inscripcion-respuestas/dialog-inscripcion-respuestas.component';
 
 @Component({
   selector: 'app-dialog-inscripcion',
@@ -28,17 +30,60 @@ export class DialogInscripcionComponent {
   constructor(
     private dialogRef:MatDialogRef<DialogInscripcionComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _alumnoS:AlumnosService
+    private _alumnoS:AlumnosService,
+    public dialogRespuestas:MatDialog
   ){}
   ngOnInit():void{
     this.matDialogTitulo();
 
   }
 
+  AbrirDialogRespuestas(respuesta:string):void{
+    const dialogRef=this.dialogRespuestas.open(DialogInscripcionRespuestasComponent,{
+      data: respuesta,
+      minWidth: "30%",
+      width:"400px"
+    });
+  }
+
+  SoloNumeros(event:KeyboardEvent):void{
+    const teclasPermitidas=/[0-9]|ArrowLeft|ArrowRight|Backspace|Delete|Home|End|Shift|Tab/;
+    if(!teclasPermitidas.test(event.key)){
+      event.preventDefault();
+    }
+  }
+
+  SoloLetras(event:KeyboardEvent):void{
+    const soloLetras=/^[a-zA-ZñÑáéíóú]+$/;
+    if(this.nombreFormControl.value===""){
+      if(event.code==="Space"){
+        event.preventDefault();
+        return;
+      }
+    }
+    if(!soloLetras.test(event.key)&&event.code!=="Space"){
+      event.preventDefault();
+    }
+  }
+
+  NoEspaciosPrimero(event:KeyboardEvent):void{
+    const valorInput=(event.target as HTMLInputElement).value;
+    if(valorInput===""){
+      if(event.code==="Space"){
+        event.preventDefault();
+      }
+    }
+  }
+
   BuscarAlumnoPorMatricula():void{
 
     if(this.matriculaFormControl.value===""){
+      this.nombreFormControl.setValue("");
+      this.carreraFormControl.setValue("");
       this.matriculaFormControl.markAsTouched();
+      this.nombreFormControl.markAsUntouched();
+      this.carreraFormControl.markAsUntouched();
+      this.emailFormControl.markAsUntouched();
       return;
     }
 
@@ -77,7 +122,25 @@ export class DialogInscripcionComponent {
       this.procedenciaFormControl.markAsTouched();
       this.folioFormControl.markAsTouched();
       return;
+    } else  {
+      this.data.datosInscripcion.Datos.Matricula=this.matriculaFormControl.value;
+      this.data.datosInscripcion.Datos.Nombre=this.nombreFormControl.value;
+      this.data.datosInscripcion.Datos.Carrera=this.carreraFormControl.value;
+      this.data.datosInscripcion.Datos.Telefono=this.telefonoFormControl.value;
+      this.data.datosInscripcion.Datos.FolioRecibo=this.folioFormControl.value;
+      this.data.datosInscripcion.Datos.Taller= this.data.datosInscripcion.Talleres[0].Id;
+      this.data.datosInscripcion.Datos.Correo=this.emailFormControl.value;
+      this.data.datosInscripcion.Datos.LugarProcedencia=this.procedenciaFormControl.value;
+      this.data.datosInscripcion.Datos.IdCongreso=this.data.datosInscripcion.Talleres[0].Congreso;
+      this._alumnoS.spInscritos_Guardar(this.data.datosInscripcion.Datos).subscribe(response=>{
+        if(response!=="1"){
+          this.AbrirDialogRespuestas(response);
+        }else{
+          this.dialogRef.close("1");
+        }
+      });
     }
+
   }
 
   matDialogTitulo(): void {

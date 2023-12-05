@@ -1,0 +1,20 @@
+.btnReimprimir {
+    border-radius: 4px;
+    background-color: #1b5a4c;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .btnReimprimir:hover {
+    background-color: #278f78;
+  }
+
+  .buttonsContainer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .dialog-content{
+    display:flex;
+    justify-content: center;
+  }

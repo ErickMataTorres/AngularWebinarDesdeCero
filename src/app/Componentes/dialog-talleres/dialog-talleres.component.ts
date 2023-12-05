@@ -57,7 +57,7 @@ export class DialogTalleresComponent {
     const seguroWapper = document.createElement("p");
     const borrarWapper = document.createElement("p");
     seguroWapper.innerHTML = "¿Estás seguro?";
-    borrarWapper.innerHTML = "Se va a borrar el instructor";
+    borrarWapper.innerHTML = "Se va a borrar el taller";
     seguroWapper.classList.add("text-center");
     // seguroWapper.style.color="#1b5a4c";
     // borrarWapper.style.color="#1b5a4c";

@@ -63,6 +63,7 @@ export class CongresosComponent {
           }
         }
       }
+      window.scrollTo({top:0, behavior:"smooth"});
       /*
         setTimeout(() => {
           document.getElementById("liveAlertPlaceholder")!.style.display="none";

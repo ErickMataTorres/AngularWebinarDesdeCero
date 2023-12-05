@@ -66,14 +66,25 @@ export class InscripcionComponent {
     }
   }
 
-  openDialog( ponerTitulo: string): void {
+  openDialog(ponerTitulo: string): void {
     const dialogRef = this.dialog.open(DialogInscripcionComponent, {
-      data: { ponerTitulo },
+      data: { 
+        ponerTitulo,
+        datosInscripcion:this.Selected
+        },
       minWidth: "30%",
       width:"400px"
     });
     dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
+      if (result === "1") {
+
+        this.appendAlert("Se ha inscrito correctamente, se descargo y se envio al correo un archivo con tus datos", "", "background-color: #273646; color:white; text-align:center;", "<i class='fa-solid fa-circle-check' style='margin-left:10px;'></i>");
+
+        window.scrollTo({top:0, behavior:"smooth"});
+
+        this.toggleClassSeleccionar(this.Selected.Talleres[0]);
+
+        // this.inputFormControl.setValue("");
         
         // if (ponerTitulo === "Nuevo") {
         //   this.spProfesor_Obtener();
@@ -94,6 +105,18 @@ export class InscripcionComponent {
         }, 10000);
       */
     });
+  }
+
+  appendAlert(message: string, type: string, styles: string, icon: string) {
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholder')!;
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = [
+      `<div style="${styles}" data-bs-theme="dark" class="alert ${type} alert-dismissible" role="alert">`,
+      `   <div style="font-size:large;">${message} ${icon}</div>`,
+      `   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`,
+      '</div>'
+    ].join('');
+    alertPlaceholder.append(wrapper);
   }
 
   applyFilter(event: Event) {

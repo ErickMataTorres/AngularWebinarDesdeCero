@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,10 +12,14 @@ import { DialogGuardarProfesoresComponent } from '../dialog-guardar-profesores/d
   styleUrls: ['./profesores.component.css']
 })
 export class ProfesoresComponent {
+  
   displayedColumns: string[] = ["Nombre", "Accion"];
   dataSource!: MatTableDataSource<Profesor>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  @ViewChild("input")input?:ElementRef;
+
   constructor(
     private _profesorS: ProfesoresService,
     public dialog: MatDialog
@@ -62,6 +66,7 @@ export class ProfesoresComponent {
           }
         }
       }
+      window.scrollTo({top:0, behavior:"smooth"});
       /*
         setTimeout(() => {
           document.getElementById("liveAlertPlaceholder")!.style.display="none";
